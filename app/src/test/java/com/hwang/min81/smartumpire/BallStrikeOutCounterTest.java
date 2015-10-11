@@ -20,6 +20,12 @@ public class BallStrikeOutCounterTest {
         assertEquals(0, ballStrikeOutCounter.getStrike());
     }
 
+    @Test
+    public void Out_CanDeliverTheDefaultValue_0() {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        assertEquals(0, ballStrikeOutCounter.getOut());
+    }
+
     /*
      * setBall() 함수가 예외를 발생시키도록 수정되면서 함수 시그너처가 바뀌었음.
     @Test
@@ -72,6 +78,20 @@ public class BallStrikeOutCounterTest {
         assertEquals(2, ballStrikeOutCounter.getStrike());
     }
 
+    @Test
+    public void Out_CanBeAssignedTheValue_0to2() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+
+        ballStrikeOutCounter.setOut((short) 0);
+        assertEquals(0, ballStrikeOutCounter.getOut());
+
+        ballStrikeOutCounter.setOut((short) 1);
+        assertEquals(1, ballStrikeOutCounter.getOut());
+
+        ballStrikeOutCounter.setOut((short) 2);
+        assertEquals(2, ballStrikeOutCounter.getOut());
+    }
+
     // 아래 테스트는 2개의 입력값에 대한 테스트가 이루어지지 않음.
     // TODO 추후 다른 테스트 방법을 통해 개선되어야 함.
     @Test(expected = BallStrikeOutCounter.OutOfRangeException.class)
@@ -86,5 +106,12 @@ public class BallStrikeOutCounterTest {
         BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
         ballStrikeOutCounter.setStrike((short) 3);
         ballStrikeOutCounter.setStrike((short) 4);
+    }
+
+    @Test(expected = BallStrikeOutCounter.OutOfRangeException.class)
+    public void Out_AssigningTheValueGreaterThan2_ThrowsOutOfRangeException() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        ballStrikeOutCounter.setOut((short) 3);
+        ballStrikeOutCounter.setOut((short) 4);
     }
 }
