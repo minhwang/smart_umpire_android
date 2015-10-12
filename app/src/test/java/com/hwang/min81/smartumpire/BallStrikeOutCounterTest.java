@@ -114,4 +114,56 @@ public class BallStrikeOutCounterTest {
         ballStrikeOutCounter.setOut((short) 3);
         ballStrikeOutCounter.setOut((short) 4);
     }
+
+    @Test
+    public void addOneStrike_whenStrikeIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenStrike = 0;
+
+        ballStrikeOutCounter.setStrike(givenStrike);
+
+        ballStrikeOutCounter.addOneStrike();
+
+        assertEquals(givenStrike + 1, ballStrikeOutCounter.getStrike());
+    }
+
+    @Test
+    public void addOneStrike_whenStrikeIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenStrike = 1;
+
+        ballStrikeOutCounter.setStrike(givenStrike);
+
+        ballStrikeOutCounter.addOneStrike();
+
+        assertEquals(givenStrike + 1, ballStrikeOutCounter.getStrike());
+    }
+
+    @Test
+    public void addOneStrike_whenStrikeIs2_BallIs1_OutIs0_shouldResetStrikeAndBall_andAddOneOut() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenStrike = 2, givenBall = 1, givenOut = 0;
+
+        ballStrikeOutCounter.setStrike(givenStrike);
+        ballStrikeOutCounter.setBall(givenBall);
+        ballStrikeOutCounter.setOut(givenOut);
+
+        ballStrikeOutCounter.addOneStrike();
+
+        assertEquals(0, ballStrikeOutCounter.getStrike());
+        assertEquals(0, ballStrikeOutCounter.getBall());
+        assertEquals(givenOut + 1, ballStrikeOutCounter.getOut());
+    }
+
+    @Test
+    public void addOneOut_whenOutIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenOut = 0;
+
+        ballStrikeOutCounter.setOut(givenOut);
+
+        ballStrikeOutCounter.addOneOut();
+
+        assertEquals(givenOut + 1, ballStrikeOutCounter.getOut());
+    }
 }
