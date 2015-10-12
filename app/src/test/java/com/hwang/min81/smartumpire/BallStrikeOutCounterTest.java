@@ -166,4 +166,68 @@ public class BallStrikeOutCounterTest {
 
         assertEquals(givenOut + 1, ballStrikeOutCounter.getOut());
     }
+
+    @Test
+    public void addOneOut_whenOutIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenOut = 1;
+
+        ballStrikeOutCounter.setOut(givenOut);
+
+        ballStrikeOutCounter.addOneOut();
+
+        assertEquals(givenOut + 1, ballStrikeOutCounter.getOut());
+    }
+
+    @Test
+    public void addOneOut_whenOutIs2_shouldResetAll() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenStrike = 2, givenBall = 1, givenOut = 2;
+
+        ballStrikeOutCounter.setStrike(givenStrike);
+        ballStrikeOutCounter.setBall(givenBall);
+        ballStrikeOutCounter.setOut(givenOut);
+
+        ballStrikeOutCounter.addOneOut();
+
+        assertEquals(0, ballStrikeOutCounter.getStrike());
+        assertEquals(0, ballStrikeOutCounter.getBall());
+        assertEquals(0, ballStrikeOutCounter.getOut());
+    }
+
+    @Test
+    public void addOneBall_whenBallIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenBall = 0;
+
+        ballStrikeOutCounter.setBall(givenBall);
+
+        ballStrikeOutCounter.addOneBall();
+
+        assertEquals(givenBall + 1, ballStrikeOutCounter.getBall());
+    }
+
+    @Test
+    public void addOneBall_whenBallIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenBall = 1;
+
+        ballStrikeOutCounter.setBall(givenBall);
+
+        ballStrikeOutCounter.addOneBall();
+
+        assertEquals(givenBall + 1, ballStrikeOutCounter.getBall());
+    }
+
+    @Test
+    public void addOneBall_whenBallIs2_shouldIncreaseBy1() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenBall = 2;
+
+        ballStrikeOutCounter.setBall(givenBall);
+
+        ballStrikeOutCounter.addOneBall();
+
+        assertEquals(givenBall + 1, ballStrikeOutCounter.getBall());
+    }
 }
