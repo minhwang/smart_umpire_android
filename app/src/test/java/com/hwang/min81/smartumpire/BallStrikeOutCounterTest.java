@@ -230,4 +230,36 @@ public class BallStrikeOutCounterTest {
 
         assertEquals(givenBall + 1, ballStrikeOutCounter.getBall());
     }
+
+    @Test
+    public void addOneBall_whenBallIs3_shouldResetBallAndStrike() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenBall = 3, givenStrike = 1;
+
+        ballStrikeOutCounter.setBall(givenBall);
+        ballStrikeOutCounter.setStrike(givenStrike);
+
+        ballStrikeOutCounter.addOneBall();
+
+        assertEquals(0, ballStrikeOutCounter.getBall());
+        assertEquals(0, ballStrikeOutCounter.getStrike());
+    }
+
+    @Test
+    public void addOneStrike_whenStrikeIs2AndOutIs2_shouldResetAll() throws BallStrikeOutCounter.OutOfRangeException {
+        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
+        final short givenStrike = 2, givenOut = 2, givenBall = 2;
+
+        ballStrikeOutCounter.setStrike(givenStrike);
+        ballStrikeOutCounter.setBall(givenBall);
+        ballStrikeOutCounter.setOut(givenOut);
+
+        ballStrikeOutCounter.addOneStrike();
+
+        assertEquals(0, ballStrikeOutCounter.getStrike());
+        assertEquals(0, ballStrikeOutCounter.getBall());
+        assertEquals(0, ballStrikeOutCounter.getOut());
+
+
+    }
 }
