@@ -1,5 +1,7 @@
 package com.hwang.min81.smartumpire;
 
+import android.test.suitebuilder.annotation.SmallTest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertEquals;
  * Created by min81 on 2015-10-28.
  */
 @RunWith(Parameterized.class)
+@SmallTest
 public class BaseballActionHitTest {
     @Parameterized.Parameters(name = "{index}: B={0}, S={1}, O={2}")
     public static Iterable<Object[]> getParams() {

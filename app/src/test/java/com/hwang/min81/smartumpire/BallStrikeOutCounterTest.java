@@ -1,5 +1,7 @@
 package com.hwang.min81.smartumpire;
 
+import android.test.suitebuilder.annotation.SmallTest;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,6 +9,7 @@ import static org.junit.Assert.*;
 /**
  * Created by min81 on 2015-10-07.
  */
+@SmallTest
 public class BallStrikeOutCounterTest {
     @Test
     public void Ball_CanDeliverTheDefaultValue_0() {
