@@ -23,6 +23,6 @@ public class TimerTest {
 
     @Test
     public void testSample() {
-        
+
     }
 }
