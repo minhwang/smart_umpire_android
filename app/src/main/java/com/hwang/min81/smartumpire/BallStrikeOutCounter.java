@@ -1,77 +1,112 @@
 package com.hwang.min81.smartumpire;
 
+import com.hwang.min81.smartumpire.actions.*;
+
 /**
  * Created by min81 on 2015-10-07.
  */
-public class BallStrikeOutCounter {
+public class BallStrikeOutCounter implements BaseballActionListener {
+    private final int MAX_BALLS = 4, MAX_STRIKES = 3, MAX_OUTS = 3;
+    private int balls = 0, strikes = 0, outs = 0;
 
-    private short ball = 0, strike = 0, out = 0;
 
-    public short getBall() {
-        return this.ball;
+    public int getBalls() {
+        return this.balls;
     }
 
-    public void setBall(short ball) throws OutOfRangeException {
-        if(ball > 3) { throw new OutOfRangeException(); }
-        this.ball = ball;
+    public void setBalls(int balls) throws MaxValueReachedException {
+        if(balls >= this.MAX_BALLS) { throw new MaxValueReachedException(); }
+        this.balls = balls;
     }
 
-    public short getStrike() {
-        return this.strike;
+    public int getStrikes() {
+        return this.strikes;
     }
 
-    public void setStrike(short strike) throws OutOfRangeException {
-        if(strike > 2) { throw new OutOfRangeException(); }
-        this.strike = strike;
+    public void setStrikes(int strikes) throws MaxValueReachedException {
+        if(strikes > this.MAX_STRIKES) { throw new MaxValueReachedException(); }
+        this.strikes = strikes;
     }
 
-    public short getOut() {
-        return this.out;
+    public int getOuts() {
+        return this.outs;
     }
 
-    public void setOut(short out) throws OutOfRangeException {
-        if(out > 2) { throw new OutOfRangeException(); }
-        this.out = out;
+    public void setOuts(int outs) throws MaxValueReachedException {
+        if(outs > this.MAX_OUTS) { throw new MaxValueReachedException(); }
+        this.outs = outs;
     }
 
-    public void addOneStrike() throws OutOfRangeException {
-        final short strike = this.getStrike();
+    @Override
+    public void performed(BaseballActions action) {
+        switch (action) {
+            case BALL:
+                this.increaseBallsByOne();
+                break;
+            case STRIKE:
+                this.increaseStrikesByOne();
+                break;
+            case BASE_ON_BALLS:
+                try {
+                    this.setBalls(0);
+                    this.setStrikes(0);
+                } catch (MaxValueReachedException e) {
+                    e.printStackTrace();
+                }
 
-        if(strike == 2) {
-            this.setStrike((short)0);
-            this.setBall((short) 0);
-            this.addOneOut();
+            default:
+                break;
         }
-        else {
-            this.setStrike((short)(strike + 1));
-        }
+
     }
 
-    public void addOneOut() throws OutOfRangeException {
-        final short out = this.getOut();
-
-        if(out == 2) {
-            this.setStrike((short)0);
-            this.setBall((short)0);
-            this.setOut((short) 0);
-        }
-        else {
-            this.setOut((short) (out + 1));
-        }
+    private void increaseBallsByOne() {
+        final int increasedBalls = getBalls() + 1;
+        try {
+            if(increasedBalls == this.MAX_BALLS) {
+                setBalls(0);
+                setStrikes(0);
+            }
+            else {
+                setBalls(increasedBalls);
+            }
+        } catch (MaxValueReachedException e) {}
     }
 
-    public void addOneBall() throws OutOfRangeException {
-        final short ball = this.getBall();
-
-        if(ball == 3) {
-            this.setStrike((short)0);
-            this.setBall((short)0);
-        }
-        else {
-            this.setBall((short) (ball + 1));
-        }
+    private void increaseStrikesByOne() {
+        final int increasedStrikes = getStrikes() + 1;
+        try {
+            if(increasedStrikes == this.MAX_STRIKES) {
+                setBalls(0);
+                setStrikes(0);
+                increaseOutsByOne();
+            }
+            else {
+                setStrikes(increasedStrikes);
+            }
+        } catch (MaxValueReachedException e) {}
     }
 
-    class OutOfRangeException extends Exception {
+    private void increaseOutsByOne() {
+        final int increasedOuts = getOuts() + 1;
+        try {
+            if(increasedOuts == this.MAX_OUTS) {
+                setBalls(0);
+                setStrikes(0);
+                setOuts(0);
+            }
+            else {
+                setOuts(increasedOuts);
+            }
+        } catch (MaxValueReachedException e) {}
+
+    }
+
+    @Override
+    public void restored(BaseballActions action) {
+
+    }
+
+    public class MaxValueReachedException extends Exception {
     }
 }
