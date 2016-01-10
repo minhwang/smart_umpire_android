@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.hwang.min81.smartumpire.TestActivity"
+    android:gravity="bottom"
+    android:background="@drawable/back">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#c9ffffff"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="left">
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:touchscreenBlocksFocus="false"
+            android:layout_alignParentLeft="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="스나이퍼"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_headline_material"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_display_3_material"
+                android:textColor="#deaf13" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/abc_ic_menu_share_mtrl_alpha" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_display_1_material"
+                android:textAlignment="center" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOP"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_large_material"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="서울 이글스"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_headline_material"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_display_3_material"
+                android:textColor="#deaf13" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#c8ffffff"
+        android:layout_marginBottom="10dp">
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#98c5af83"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/abc_ic_menu_cut_mtrl_alpha"
+            android:text="투구"
+            android:background="#00ffffff" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+            android:text="Bat"
+            android:layout_weight="1"
+            android:background="#00ffffff" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/abc_ic_search_api_mtrl_alpha"
+            android:text="Field"
+            android:layout_weight="1"
+            android:background="#00ffffff" />
+        <Button
+            android:id="@+id/mgr_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+            android:text="관리"
+            android:layout_weight="1"
+            android:background="#00ffffff" />
+
+    </LinearLayout>
+</LinearLayout>
