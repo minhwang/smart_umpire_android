@@ -4,8 +4,10 @@ package com.hwang.min81.smartumpire;
  * Created by min on 2015. 12. 27..
  */
 public interface Score<T> {
-    public T earnPoints(int points);
-    public T loosePoints(int points);
-    public T getCurrentScore();
-    public void setCurrentScore(T score);
+    T earnPoints(int points);
+    T loosePoints(int points);
+    T getCurrentScore();
+    void setCurrentScore(T score);
+    void addListener(ScoreChangedEventListener listener);
+    void removeListener(ScoreChangedEventListener listener);
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TeamScoreViewImpl">
+        <attr name="teamName" format="string" />
+        <attr name="teamScore" format="integer" />
+        <attr name="turn" format="enum">
+            <enum name="batting" value="0"/>
+            <enum name="fielding" value="1"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="InningViewImpl">
+        <attr name="inning" format="integer" />
+        <attr name="topBottom" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="BallStrikeOutCounterViewImpl">
+        <attr name="ballOnColor" format="color" />
+        <attr name="strikeOnColor" format="color" />
+        <attr name="outOnColor" format="color" />
+        <attr name="offColor" format="color" />
+        <attr name="balls" format="enum">
+            <enum name="zero" value="0"/>
+            <enum name="one" value="1"/>
+            <enum name="two" value="2"/>
+            <enum name="three" value="3"/>
+        </attr>
+        <attr name="strikes" format="enum">
+            <enum name="zero" value="0"/>
+            <enum name="one" value="1"/>
+            <enum name="two" value="2"/>
+        </attr>
+        <attr name="outs" format="enum">
+            <enum name="zero" value="0"/>
+            <enum name="one" value="1"/>
+            <enum name="two" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

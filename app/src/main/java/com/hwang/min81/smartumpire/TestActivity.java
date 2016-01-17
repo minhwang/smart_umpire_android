@@ -10,8 +10,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-public class TestActivity extends AppCompatActivity {
-    private Button mgrButton;
+public class TestActivity extends AppCompatActivity implements View.OnLongClickListener {
+    private Button pitchButton, batButton, fieldButton, mgrButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +19,22 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         this.mgrButton = (Button)findViewById(R.id.mgr_button);
-        this.mgrButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActionPopupActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
+        this.mgrButton.setOnLongClickListener(this);
+
+        this.pitchButton = (Button)findViewById(R.id.pitch_button);
+        this.pitchButton.setOnLongClickListener(this);
+
+        this.batButton = (Button)findViewById(R.id.bat_button);
+        this.batButton.setOnLongClickListener(this);
+
+        this.fieldButton = (Button)findViewById(R.id.field_button);
+        this.fieldButton.setOnLongClickListener(this);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Intent intent = new Intent(v.getContext(), ActionPopupActivity.class);
+        startActivity(intent);
+        return true;
     }
 }
