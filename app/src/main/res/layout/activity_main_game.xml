@@ -52,6 +52,7 @@
 
 
         <com.hwang.min81.smartumpire.views.BallStrikeOutCounterViewImpl
+            android:id="@+id/ball_strike_out_counter_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:balls="two" app:strikes="one" app:outs="two"
@@ -117,6 +118,12 @@
     <Button
         android:text="Away"
         android:onClick="onAwayClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Counter"
+        android:onClick="onCounterClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

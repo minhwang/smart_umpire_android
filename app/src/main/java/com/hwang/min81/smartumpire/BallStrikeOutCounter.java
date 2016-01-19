@@ -2,13 +2,26 @@ package com.hwang.min81.smartumpire;
 
 import com.hwang.min81.smartumpire.actions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by min81 on 2015-10-07.
  */
 public class BallStrikeOutCounter implements BaseballActionListener {
     private final int MAX_BALLS = 4, MAX_STRIKES = 3, MAX_OUTS = 3;
-    private int balls = 0, strikes = 0, outs = 0;
+    private int balls, strikes, outs;
+    private List<BallStrikeOutCounterChangedEventListener> listeners = new ArrayList();
 
+    public BallStrikeOutCounter() {
+        try {
+            setBalls(0);
+            setStrikes(0);
+            setOuts(0);
+        } catch (MaxValueReachedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getBalls() {
         return this.balls;
@@ -17,6 +30,7 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     public void setBalls(int balls) throws MaxValueReachedException {
         if(balls >= this.MAX_BALLS) { throw new MaxValueReachedException(); }
         this.balls = balls;
+        counterChanged();
     }
 
     public int getStrikes() {
@@ -26,6 +40,7 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     public void setStrikes(int strikes) throws MaxValueReachedException {
         if(strikes > this.MAX_STRIKES) { throw new MaxValueReachedException(); }
         this.strikes = strikes;
+        counterChanged();
     }
 
     public int getOuts() {
@@ -35,6 +50,7 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     public void setOuts(int outs) throws MaxValueReachedException {
         if(outs > this.MAX_OUTS) { throw new MaxValueReachedException(); }
         this.outs = outs;
+        counterChanged();
     }
 
     @Override
@@ -105,6 +121,20 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     @Override
     public void restored(BaseballActions action) {
 
+    }
+
+    public void addListener(BallStrikeOutCounterChangedEventListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(BallStrikeOutCounterChangedEventListener listener) {
+        this.listeners.remove(listener);
+    }
+
+    private void counterChanged() {
+        for(BallStrikeOutCounterChangedEventListener listener : listeners) {
+            listener.counterChanged(this);
+        }
     }
 
     public class MaxValueReachedException extends Exception {
