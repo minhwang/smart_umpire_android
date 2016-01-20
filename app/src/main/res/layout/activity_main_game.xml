@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:balls="two" app:strikes="one" app:outs="two"
+            app:ballOnColor="#edcf08" app:strikeOnColor="#71c498" app:outOnColor="#ed574a" app:offColor="#bab7b7"
             android:layout_weight="1"/>
 
         <Button

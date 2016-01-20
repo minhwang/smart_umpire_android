@@ -3,8 +3,11 @@ package com.hwang.min81.smartumpire.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,13 +17,15 @@ import com.hwang.min81.smartumpire.R;
  * Created by min on 2016. 1. 16..
  */
 public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallStrikeOutCounterView {
-    private TextView[] tvBalls = new TextView[3];
-    private TextView[] tvStrikes = new TextView[2];
-    private TextView[] tvOuts = new TextView[2];
+    private ImageView[] ivBalls = new ImageView[3];
+    private ImageView[] ivStrikes = new ImageView[2];
+    private ImageView[] ivOuts = new ImageView[2];
     private int ballOnColor;
     private int strikeOnColor;
     private int outOnColor;
     private int offColor;
+
+    private ImageView ivBall;
 
     public BallStrikeOutCounterViewImpl(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -29,13 +34,13 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
                 Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.ball_strike_out_counter_view, this, true);
 
-        this.tvBalls[0] = (TextView)findViewById(R.id.tvBall_1);
-        this.tvBalls[1] = (TextView)findViewById(R.id.tvBall_2);
-        this.tvBalls[2] = (TextView)findViewById(R.id.tvBall_3);
-        this.tvStrikes[0] = (TextView)findViewById(R.id.tvStrike_1);
-        this.tvStrikes[1] = (TextView)findViewById(R.id.tvStrike_2);
-        this.tvOuts[0] = (TextView)findViewById(R.id.tvOut_1);
-        this.tvOuts[1] = (TextView)findViewById(R.id.tvOut_2);
+        this.ivBalls[0] = (ImageView)findViewById(R.id.ivBall_1);
+        this.ivBalls[1] = (ImageView)findViewById(R.id.ivBall_2);
+        this.ivBalls[2] = (ImageView)findViewById(R.id.ivBall_3);
+        this.ivStrikes[0] = (ImageView)findViewById(R.id.ivStrike_1);
+        this.ivStrikes[1] = (ImageView)findViewById(R.id.ivStrike_2);
+        this.ivOuts[0] = (ImageView)findViewById(R.id.ivOut_1);
+        this.ivOuts[1] = (ImageView)findViewById(R.id.ivOut_2);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.BallStrikeOutCounterViewImpl, 0, 0);
@@ -57,7 +62,8 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
     @Override public void setBalls(int balls) {
         for(int i = 0; i < 3; i++) {
             int color = i < balls ? this.ballOnColor : this.offColor;
-            this.tvBalls[i].setTextColor(color);
+            ((GradientDrawable)this.ivBalls[i].getDrawable()).setColor(color);
+
         }
         invalidate();
         requestLayout();
@@ -66,7 +72,7 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
     @Override public void setStrikes(int strikes) {
         for(int i = 0; i < 2; i++) {
             int color = i < strikes ? this.strikeOnColor : this.offColor;
-            this.tvStrikes[i].setTextColor(color);
+            ((GradientDrawable)this.ivStrikes[i].getDrawable()).setColor(color);
         }
         invalidate();
         requestLayout();
@@ -75,7 +81,7 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
     @Override public void setOuts(int outs) {
         for(int i = 0; i < 2; i++) {
             int color = i < outs ? this.outOnColor : this.offColor;
-            this.tvOuts[i].setTextColor(color);
+            ((GradientDrawable)this.ivOuts[i].getDrawable()).setColor(color);
         }
         invalidate();
         requestLayout();
