@@ -9,10 +9,12 @@ import com.hwang.min81.smartumpire.actions.BaseballAction;
 import com.hwang.min81.smartumpire.actions.BaseballActions;
 import com.hwang.min81.smartumpire.controllers.BallStrikeOutCounterController;
 import com.hwang.min81.smartumpire.controllers.TeamScoreController;
+import com.hwang.min81.smartumpire.controllers.TimerController;
 import com.hwang.min81.smartumpire.views.BallStrikeOutCounterView;
 import com.hwang.min81.smartumpire.views.TeamScoreView;
+import com.hwang.min81.smartumpire.views.TimerView;
 
-public class MainGameActivity extends AppCompatActivity implements TeamScoreController, BallStrikeOutCounterController {
+public class MainGameActivity extends AppCompatActivity implements TeamScoreController, BallStrikeOutCounterController, TimerController {
     private BaseballScore homeScore;
     private BaseballScore awayScore;
     private TeamScoreView homeScoreView;
@@ -24,6 +26,8 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
     private BaseballAction ballAction;
     private BaseballAction strikeAction;
 
+    private TimerView timerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,10 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         this.homeScoreView = (TeamScoreView)findViewById(R.id.home_score_view);
         this.awayScoreView = (TeamScoreView)findViewById(R.id.away_score_view);
         this.ballStrikeOutCounterView = (BallStrikeOutCounterView)findViewById(R.id.ball_strike_out_counter_view);
+        this.timerView = (TimerView)findViewById(R.id.timer_view);
+
+        this.timerView.setTimeText("60분");
+        this.timerView.setTimeProgressDegree(35);
 
         Intent intent = getIntent();
 
@@ -73,6 +81,8 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
 
     private void awayScoreChanged() {
         this.awayScoreView.setTeamScore(this.awayScore.getCurrentScore());
+        this.timerView.setTimeProgressDegree(this.awayScore.getCurrentScore());
+        this.timerView.setTimeText(String.valueOf(this.awayScore.getCurrentScore()));
     }
 
     public void onHomeClick(View v) {

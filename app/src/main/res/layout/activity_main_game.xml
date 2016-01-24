@@ -50,7 +50,6 @@
         android:layout_marginBottom="10dp"
         android:padding="5dp">
 
-
         <com.hwang.min81.smartumpire.views.BallStrikeOutCounterViewImpl
             android:id="@+id/ball_strike_out_counter_view"
             android:layout_width="match_parent"
@@ -59,11 +58,10 @@
             app:ballOnColor="#edcf08" app:strikeOnColor="#71c498" app:outOnColor="#ed574a" app:offColor="#bab7b7"
             android:layout_weight="1"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="aaaaa"
-            android:layout_weight="1"/>
+        <com.hwang.min81.smartumpire.views.TimerViewImpl
+            android:id="@+id/timer_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
 
     </LinearLayout>
 
@@ -110,21 +108,27 @@
 
     </LinearLayout>
 
-    <Button
-        android:text="Home"
-        android:onClick="onHomeClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Home"
+            android:onClick="onHomeClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="Away"
-        android:onClick="onAwayClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="Away"
+            android:onClick="onAwayClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="Counter"
-        android:onClick="onCounterClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="Counter"
+            android:onClick="onCounterClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>
