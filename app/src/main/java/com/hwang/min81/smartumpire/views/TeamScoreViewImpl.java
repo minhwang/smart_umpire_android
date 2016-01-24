@@ -30,12 +30,12 @@ public class TeamScoreViewImpl extends LinearLayout implements TeamScoreView{
         this.ivBatPitch = (ImageView)findViewById(R.id.ivBatPitch);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
-                attrs, R.styleable.TeamScoreViewImpl, 0, 0);
+                attrs, R.styleable.TeamScoreView, 0, 0);
 
         try {
-            setTeamName(a.getString(R.styleable.TeamScoreViewImpl_teamName));
-            setTeamScore(a.getInteger(R.styleable.TeamScoreViewImpl_teamScore, 0));
-            setTurn(a.getInteger(R.styleable.TeamScoreViewImpl_turn, 0));
+            setTeamName(a.getString(R.styleable.TeamScoreView_teamName));
+            setTeamScore(a.getInteger(R.styleable.TeamScoreView_teamScore, 0));
+            setTurn(a.getInteger(R.styleable.TeamScoreView_turn, 0));
 
         } finally {
             a.recycle();
@@ -44,14 +44,10 @@ public class TeamScoreViewImpl extends LinearLayout implements TeamScoreView{
 
     @Override public void setTeamName(String name) {
         this.tvTeamName.setText(name);
-        invalidate();
-        requestLayout();
     }
 
     @Override public void setTeamScore(int score) {
         this.tvTeamScore.setText(String.valueOf(score));
-        invalidate();
-        requestLayout();
     }
 
     @Override public void setTurn(int turn) {
@@ -60,7 +56,5 @@ public class TeamScoreViewImpl extends LinearLayout implements TeamScoreView{
         int id = turn == 0 ? batSrc : fieldSrc;
 
         ivBatPitch.setImageResource(id);
-        invalidate();
-        requestLayout();
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TeamScoreViewImpl">
+    <declare-styleable name="TeamScoreView">
         <attr name="teamName" format="string" />
         <attr name="teamScore" format="integer" />
         <attr name="turn" format="enum">
@@ -8,14 +8,14 @@
             <enum name="fielding" value="1"/>
         </attr>
     </declare-styleable>
-    <declare-styleable name="InningViewImpl">
+    <declare-styleable name="InningView">
         <attr name="inning" format="integer" />
         <attr name="topBottom" format="enum">
             <enum name="top" value="0"/>
             <enum name="bottom" value="1"/>
         </attr>
     </declare-styleable>
-    <declare-styleable name="BallStrikeOutCounterViewImpl">
+    <declare-styleable name="BallStrikeOutCounterView">
         <attr name="ballOnColor" format="color" />
         <attr name="strikeOnColor" format="color" />
         <attr name="outOnColor" format="color" />
@@ -36,5 +36,15 @@
             <enum name="one" value="1"/>
             <enum name="two" value="2"/>
         </attr>
+    </declare-styleable>
+    <declare-styleable name="TimerView">
+        <attr name="timeProgressDegree" format="integer" />
+        <attr name="timeText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="CircularProgress">
+        <attr name="backColor" format="color" />
+        <attr name="foreColor" format="color" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressSize" format="integer" />
     </declare-styleable>
 </resources>

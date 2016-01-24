@@ -27,11 +27,11 @@ public class InningViewImpl extends LinearLayout implements InningView {
         this.tvTopBottom = (TextView)findViewById(R.id.tvTopBottom);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
-                attrs, R.styleable.InningViewImpl, 0, 0);
+                attrs, R.styleable.InningView, 0, 0);
 
         try {
-            setInning(a.getInteger(R.styleable.InningViewImpl_inning, 0));
-            setTopBottom(a.getInteger(R.styleable.InningViewImpl_topBottom, 0));
+            setInning(a.getInteger(R.styleable.InningView_inning, 0));
+            setTopBottom(a.getInteger(R.styleable.InningView_topBottom, 0));
 
         } finally {
             a.recycle();

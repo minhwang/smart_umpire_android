@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.hwang.min81.smartumpire.R;
 
@@ -24,8 +22,6 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
     private int strikeOnColor;
     private int outOnColor;
     private int offColor;
-
-    private ImageView ivBall;
 
     public BallStrikeOutCounterViewImpl(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,16 +39,16 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
         this.ivOuts[1] = (ImageView)findViewById(R.id.ivOut_2);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
-                attrs, R.styleable.BallStrikeOutCounterViewImpl, 0, 0);
+                attrs, R.styleable.BallStrikeOutCounterView, 0, 0);
 
         try {
-            this.ballOnColor = a.getColor(R.styleable.BallStrikeOutCounterViewImpl_ballOnColor, Color.YELLOW);
-            this.strikeOnColor = a.getColor(R.styleable.BallStrikeOutCounterViewImpl_strikeOnColor, Color.GREEN);
-            this.outOnColor = a.getColor(R.styleable.BallStrikeOutCounterViewImpl_outOnColor, Color.RED);
-            this.offColor = a.getColor(R.styleable.BallStrikeOutCounterViewImpl_offColor, Color.LTGRAY);
-            setBalls(a.getInteger(R.styleable.BallStrikeOutCounterViewImpl_balls, 0));
-            setStrikes(a.getInteger(R.styleable.BallStrikeOutCounterViewImpl_strikes, 0));
-            setOuts(a.getInteger(R.styleable.BallStrikeOutCounterViewImpl_outs, 0));
+            this.ballOnColor = a.getColor(R.styleable.BallStrikeOutCounterView_ballOnColor, Color.YELLOW);
+            this.strikeOnColor = a.getColor(R.styleable.BallStrikeOutCounterView_strikeOnColor, Color.GREEN);
+            this.outOnColor = a.getColor(R.styleable.BallStrikeOutCounterView_outOnColor, Color.RED);
+            this.offColor = a.getColor(R.styleable.BallStrikeOutCounterView_offColor, Color.LTGRAY);
+            setBalls(a.getInteger(R.styleable.BallStrikeOutCounterView_balls, 0));
+            setStrikes(a.getInteger(R.styleable.BallStrikeOutCounterView_strikes, 0));
+            setOuts(a.getInteger(R.styleable.BallStrikeOutCounterView_outs, 0));
 
         } finally {
             a.recycle();
@@ -65,8 +61,6 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
             ((GradientDrawable)this.ivBalls[i].getDrawable()).setColor(color);
 
         }
-        invalidate();
-        requestLayout();
     }
 
     @Override public void setStrikes(int strikes) {
@@ -74,8 +68,6 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
             int color = i < strikes ? this.strikeOnColor : this.offColor;
             ((GradientDrawable)this.ivStrikes[i].getDrawable()).setColor(color);
         }
-        invalidate();
-        requestLayout();
     }
 
     @Override public void setOuts(int outs) {
@@ -83,7 +75,5 @@ public class BallStrikeOutCounterViewImpl extends LinearLayout implements BallSt
             int color = i < outs ? this.outOnColor : this.offColor;
             ((GradientDrawable)this.ivOuts[i].getDrawable()).setColor(color);
         }
-        invalidate();
-        requestLayout();
     }
 }
