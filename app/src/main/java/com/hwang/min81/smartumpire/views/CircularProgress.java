@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -59,7 +60,7 @@ public class CircularProgress extends View {
     }
 
     public void setProgressDegree(int degree) {
-        this.progressDegree = degree;
+        this.progressDegree = degree % 360;
         invalidate();
     }
 
@@ -72,11 +73,10 @@ public class CircularProgress extends View {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(this.progressColor);
 
-        for(int i = -90; i < this.progressDegree - 90; i++) {
-            float dX = (float)(this.r * Math.cos(Math.toRadians(i)));
-            float dY = (float)(this.r * Math.sin(Math.toRadians(i)));
+        for(double degree = -90; degree < this.progressDegree - 90; degree += 0.2) {
+            float dX = (float)(this.r * Math.cos(Math.toRadians(degree)));
+            float dY = (float)(this.r * Math.sin(Math.toRadians(degree)));
             canvas.drawLine(this.x, this.y, this.x + dX, this.y + dY, paint);
-            
         }
     }
 }
