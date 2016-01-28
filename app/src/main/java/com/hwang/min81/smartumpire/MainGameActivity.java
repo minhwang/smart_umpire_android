@@ -3,11 +3,7 @@ package com.hwang.min81.smartumpire;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.PopupWindow;
 
 import com.hwang.min81.smartumpire.actions.BaseballAction;
 import com.hwang.min81.smartumpire.actions.BaseballActions;
@@ -25,7 +21,7 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
     private TeamScoreView homeScoreView;
     private TeamScoreView awayScoreView;
     private TimerView timerView;
-    private PopupWindow baseballActionView;
+    private BaseballActionView baseballActionView;
 
     private BallStrikeOutCounter ballStrikeOutCounter;
     private BallStrikeOutCounterView ballStrikeOutCounterView;
@@ -67,10 +63,12 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         this.strikeAction.addActionListener(this.ballStrikeOutCounter);
 
         // set longclicklisteners for menu button
-        findViewById(R.id.btnManageMenu).setOnLongClickListener(this);
-        findViewById(R.id.btnPitchAction).setOnLongClickListener(this);
+        findViewById(R.id.btnManagingAction).setOnLongClickListener(this);
+        findViewById(R.id.btnPitchingAction).setOnLongClickListener(this);
         findViewById(R.id.btnBattingAction).setOnLongClickListener(this);
         findViewById(R.id.btnFieldingAction).setOnLongClickListener(this);
+
+        this.baseballActionView = new BaseballActionView(this);
     }
 
     @Override
@@ -111,11 +109,25 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
 
     @Override
     public boolean onLongClick(View v) {
-        View popupView = getLayoutInflater().inflate(R.layout.baseball_action_view, null);
-        this.baseballActionView = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        BaseballActionPager baseballActionPager;
 
-        this.baseballActionView.setAnimationStyle(-1); // 애니메이션 설정(-1:설정, 0:설정안함)
-        this.baseballActionView.showAsDropDown(v, 0, -500);
-        return false;
+        switch (v.getId()) {
+            case R.id.btnPitchingAction:
+                baseballActionPager = BaseballActionPager.PITCHING;
+                break;
+            case R.id.btnBattingAction:
+                baseballActionPager = BaseballActionPager.BATTING;
+                break;
+            case R.id.btnFieldingAction:
+                baseballActionPager = BaseballActionPager.FIELDING;
+                break;
+            case R.id.btnManagingAction:
+                baseballActionPager = BaseballActionPager.MANAGING;
+                break;
+            default:
+                return false;
+        }
+        this.baseballActionView.show(baseballActionPager, v);
+        return true;
     }
 }
