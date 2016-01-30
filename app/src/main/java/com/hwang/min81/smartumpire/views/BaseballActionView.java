@@ -24,6 +24,8 @@ public class BaseballActionView extends PopupWindow implements ViewPager.OnPageC
     private BaseballActionViewPager baseballActionViewPager;
     private int currentPagerPosition;
     private View[] anchors = new View[BaseballActionPager.values().length];
+    private View.OnClickListener performActionListener;
+    private View.OnClickListener restoreActionListener;
 
     public BaseballActionView(View contentView) {
         super(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -33,6 +35,14 @@ public class BaseballActionView extends PopupWindow implements ViewPager.OnPageC
         this.baseballActionViewPager.addOnPageChangeListener(this);
         ((RelativeLayout)contentView.findViewById(R.id.action_pager_layout)).addView(this.baseballActionViewPager);
         contentView.findViewById(R.id.ivClosePopup).setOnClickListener(this);
+    }
+
+    public void setOnPerformActionListener(View.OnClickListener listener) {
+        this.performActionListener = listener;
+    }
+
+    public void setOnRestoreActionListener(View.OnClickListener listener) {
+        this.restoreActionListener = listener;
     }
 
     public void setAnchor(BaseballActionPager actionPager, View anchor) {
@@ -111,6 +121,10 @@ public class BaseballActionView extends PopupWindow implements ViewPager.OnPageC
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
             ViewGroup layout = (ViewGroup)inflater.inflate(layoutId, container, false);
             container.addView(layout);
+
+            View contentView = getContentView();
+            contentView.findViewById(R.id.btnPerformStrike).setOnClickListener(performActionListener);
+            contentView.findViewById(R.id.btnPerformBall).setOnClickListener(performActionListener);
 
             return layout;
         }

@@ -4,7 +4,14 @@
     android:layout_height="wrap_content" android:background="#ffffff">
 
     <Button
-        android:text="Pitching"
+        android:id="@+id/btnPerformStrike"
+        android:text="Strike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnPerformBall"
+        android:text="Ball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
