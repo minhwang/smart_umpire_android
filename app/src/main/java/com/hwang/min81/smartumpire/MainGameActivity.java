@@ -68,7 +68,16 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         findViewById(R.id.btnBattingAction).setOnLongClickListener(this);
         findViewById(R.id.btnFieldingAction).setOnLongClickListener(this);
 
-        this.baseballActionView = new BaseballActionView(this);
+        initBaseballActionView();
+    }
+
+    private void initBaseballActionView() {
+        View baseballActionContentView = getLayoutInflater().inflate(R.layout.baseball_action_view, null);
+        this.baseballActionView = new BaseballActionView(baseballActionContentView);
+        this.baseballActionView.setAnchor(BaseballActionPager.PITCHING, findViewById(R.id.btnPitchingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.BATTING, findViewById(R.id.btnBattingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.FIELDING, findViewById(R.id.btnFieldingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.MANAGING, findViewById(R.id.btnManagingAction));
     }
 
     @Override
@@ -94,19 +103,6 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         this.timerView.setTimeText(String.valueOf(this.awayScore.getCurrentScore()));
     }
 
-    public void onHomeClick(View v) {
-        this.homeScore.earnPoints(1);
-    }
-
-    public void onAwayClick(View v) {
-        this.awayScore.earnPoints(1);
-    }
-
-    public void onCounterClick(View v) {
-        this.ballAction.perform();
-        this.strikeAction.perform();
-    }
-
     @Override
     public boolean onLongClick(View v) {
         BaseballActionPager baseballActionPager;
@@ -127,7 +123,8 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
             default:
                 return false;
         }
-        this.baseballActionView.show(baseballActionPager, v);
+
+        this.baseballActionView.showAbove(baseballActionPager);
         return true;
     }
 }
