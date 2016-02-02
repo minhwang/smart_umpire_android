@@ -123,8 +123,11 @@ public class BaseballActionView extends PopupWindow implements ViewPager.OnPageC
             container.addView(layout);
 
             View contentView = getContentView();
-            contentView.findViewById(R.id.btnPerformStrike).setOnClickListener(performActionListener);
-            contentView.findViewById(R.id.btnPerformBall).setOnClickListener(performActionListener);
+
+            if(position == BaseballActionPager.PITCHING.getPagePosition()) {
+                contentView.findViewById(R.id.btnPerformStrike).setOnClickListener(performActionListener);
+                contentView.findViewById(R.id.btnPerformBall).setOnClickListener(performActionListener);
+            }
 
             return layout;
         }
