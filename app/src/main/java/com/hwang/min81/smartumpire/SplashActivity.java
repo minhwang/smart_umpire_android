@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         };
 
         this.activityTimer = new java.util.Timer();
-        this.activityTimer.schedule(activityTimerTask, 5000);
+        this.activityTimer.schedule(activityTimerTask, 3000);
     }
 
     @Override
