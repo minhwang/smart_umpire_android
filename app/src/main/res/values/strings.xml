@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Smart Umpire</string>
+    <string name="app_name">Full Count</string>
     <string name="title_activity_ball_strike_out_counter">BallStrikeOutCounterActivity</string>
 </resources>
