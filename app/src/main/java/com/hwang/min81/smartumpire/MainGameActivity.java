@@ -105,8 +105,6 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
 
     private void awayScoreChanged() {
         this.awayScoreView.setTeamScore(this.awayScore.getCurrentScore());
-        this.timerView.setTimeProgressDegree(this.awayScore.getCurrentScore());
-        this.timerView.setTimeText(String.valueOf(this.awayScore.getCurrentScore()));
     }
 
     @Override

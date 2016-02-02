@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,103 +8,115 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.hwang.min81.smartumpire.MainGameActivity"
-    android:background="@drawable/back"
-    android:gravity="bottom">
+    android:background="@drawable/back">
+
+    <View
+        android:id="@+id/blur_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:alpha="0.4" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#c9ffffff"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
 
-        <com.hwang.min81.smartumpire.views.TeamScoreViewImpl
-            android:id="@+id/away_score_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:teamName="Sniper"
-            android:layout_weight=".35" />
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_marginBottom="10dp">
 
-        <com.hwang.min81.smartumpire.views.InningViewImpl
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            <com.hwang.min81.smartumpire.views.TeamScoreViewImpl
+                android:id="@+id/away_score_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:teamName="Sniper"
+                android:layout_weight=".35" />
 
-        <com.hwang.min81.smartumpire.views.TeamScoreViewImpl
-            android:id="@+id/home_score_view"
+            <com.hwang.min81.smartumpire.views.InningViewImpl
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <com.hwang.min81.smartumpire.views.TeamScoreViewImpl
+                android:id="@+id/home_score_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:teamName="Eagles"
+                android:layout_weight=".35" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:teamName="Eagles"
-            android:layout_weight=".35" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
+            <com.hwang.min81.smartumpire.views.BallStrikeOutCounterViewImpl
+                android:id="@+id/ball_strike_out_counter_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:balls="two" app:strikes="one" app:outs="two"
+                app:ballOnColor="#edcf08" app:strikeOnColor="#71c498" app:outOnColor="#ed574a" app:offColor="#bab7b7"
+                android:layout_weight="1" />
+
+            <com.hwang.min81.smartumpire.views.TimerViewImpl
+                android:id="@+id/timer_view"
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/btnPitchingAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/abc_ic_menu_cut_mtrl_alpha"
+                android:text="투구"
+                android:background="#00ffffff" />
+            <Button
+                android:id="@+id/btnBattingAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+                android:text="Bat"
+                android:layout_weight="1"
+                android:background="#00ffffff" />
+            <Button
+                android:id="@+id/btnFieldingAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/abc_ic_search_api_mtrl_alpha"
+                android:text="Field"
+                android:layout_weight="1"
+                android:background="#00ffffff" />
+            <Button
+                android:id="@+id/btnManagingAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+                android:text="관리"
+                android:layout_weight="1"
+                android:background="#00ffffff" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#c8ffffff"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp">
-
-        <com.hwang.min81.smartumpire.views.BallStrikeOutCounterViewImpl
-            android:id="@+id/ball_strike_out_counter_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:balls="two" app:strikes="one" app:outs="two"
-            app:ballOnColor="#edcf08" app:strikeOnColor="#71c498" app:outOnColor="#ed574a" app:offColor="#bab7b7"
-            android:layout_weight="1"/>
-
-        <com.hwang.min81.smartumpire.views.TimerViewImpl
-            android:id="@+id/timer_view"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#98c5af83"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="5dp">
-
-        <Button
-            android:id="@+id/btnPitchingAction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/abc_ic_menu_cut_mtrl_alpha"
-            android:text="투구"
-            android:background="#00ffffff" />
-        <Button
-            android:id="@+id/btnBattingAction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
-            android:text="Bat"
-            android:layout_weight="1"
-            android:background="#00ffffff" />
-        <Button
-            android:id="@+id/btnFieldingAction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/abc_ic_search_api_mtrl_alpha"
-            android:text="Field"
-            android:layout_weight="1"
-            android:background="#00ffffff" />
-        <Button
-            android:id="@+id/btnManagingAction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/abc_ic_voice_search_api_mtrl_alpha"
-            android:text="관리"
-            android:layout_weight="1"
-            android:background="#00ffffff" />
-
-    </LinearLayout>
-</LinearLayout>
+</FrameLayout>
