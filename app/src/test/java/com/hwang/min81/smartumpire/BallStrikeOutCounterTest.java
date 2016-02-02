@@ -46,8 +46,8 @@ public class BallStrikeOutCounterTest {
         }
 
         then: {
-            verify(counter).performed(BaseballActions.BALL);
-            verify(counter).restored(BaseballActions.BALL);
+            verify(counter).baseballActionPerformed(BaseballActions.BALL);
+            verify(counter).baseballActionRestored(BaseballActions.BALL);
         }
     }
 
@@ -88,8 +88,8 @@ public class BallStrikeOutCounterTest {
         }
 
         then: {
-            verify(counter).performed(BaseballActions.STRIKE);
-            verify(counter).restored(BaseballActions.STRIKE);
+            verify(counter).baseballActionPerformed(BaseballActions.STRIKE);
+            verify(counter).baseballActionRestored(BaseballActions.STRIKE);
         }
     }
 
@@ -130,8 +130,8 @@ public class BallStrikeOutCounterTest {
         }
 
         then: {
-            verify(counter).performed(BaseballActions.BASE_ON_BALLS);
-            verify(counter).restored(BaseballActions.BASE_ON_BALLS);
+            verify(counter).baseballActionPerformed(BaseballActions.BASE_ON_BALLS);
+            verify(counter).baseballActionRestored(BaseballActions.BASE_ON_BALLS);
         }
     }
 

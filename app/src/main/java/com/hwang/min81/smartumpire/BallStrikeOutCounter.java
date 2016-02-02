@@ -54,7 +54,7 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     }
 
     @Override
-    public void performed(BaseballActions action) {
+    public void baseballActionPerformed(BaseballActions action) {
         switch (action) {
             case BALL:
                 this.increaseBallsByOne();
@@ -119,7 +119,7 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     }
 
     @Override
-    public void restored(BaseballActions action) {
+    public void baseballActionRestored(BaseballActions action) {
 
     }
 

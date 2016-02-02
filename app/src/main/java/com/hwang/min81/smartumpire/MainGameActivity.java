@@ -8,14 +8,16 @@ import android.view.View;
 import com.hwang.min81.smartumpire.actions.BaseballAction;
 import com.hwang.min81.smartumpire.actions.BaseballActions;
 import com.hwang.min81.smartumpire.controllers.BallStrikeOutCounterController;
+import com.hwang.min81.smartumpire.controllers.BaseballActionController;
 import com.hwang.min81.smartumpire.controllers.TeamScoreController;
 import com.hwang.min81.smartumpire.controllers.TimerController;
 import com.hwang.min81.smartumpire.views.BallStrikeOutCounterView;
+import com.hwang.min81.smartumpire.views.BallStrikeOutCounterViewImpl;
 import com.hwang.min81.smartumpire.views.BaseballActionView;
 import com.hwang.min81.smartumpire.views.TeamScoreView;
 import com.hwang.min81.smartumpire.views.TimerView;
 
-public class MainGameActivity extends AppCompatActivity implements TeamScoreController, BallStrikeOutCounterController, TimerController, View.OnLongClickListener {
+public class MainGameActivity extends AppCompatActivity implements BaseballActionController, TeamScoreController, BallStrikeOutCounterController, TimerController, View.OnClickListener, View.OnLongClickListener {
     private BaseballScore homeScore;
     private BaseballScore awayScore;
     private TeamScoreView homeScoreView;
@@ -57,6 +59,7 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         this.ballStrikeOutCounter = new BallStrikeOutCounter();
         this.ballStrikeOutCounter.addListener(this);
 
+        // TODO: 모든 액션을 BaseballAction에서 관리하도록 수정 필요
         this.ballAction = new BaseballAction(BaseballActions.BALL);
         this.ballAction.addActionListener(this.ballStrikeOutCounter);
         this.strikeAction = new BaseballAction(BaseballActions.STRIKE);
@@ -68,7 +71,19 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         findViewById(R.id.btnBattingAction).setOnLongClickListener(this);
         findViewById(R.id.btnFieldingAction).setOnLongClickListener(this);
 
-        this.baseballActionView = new BaseballActionView(this);
+        initBaseballActionView();
+    }
+
+    private void initBaseballActionView() {
+        View baseballActionContentView = getLayoutInflater().inflate(R.layout.baseball_action_view, null);
+        this.baseballActionView = new BaseballActionView(baseballActionContentView);
+        this.baseballActionView.setAnchor(BaseballActionPager.PITCHING, findViewById(R.id.btnPitchingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.BATTING, findViewById(R.id.btnBattingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.FIELDING, findViewById(R.id.btnFieldingAction));
+        this.baseballActionView.setAnchor(BaseballActionPager.MANAGING, findViewById(R.id.btnManagingAction));
+
+        this.baseballActionView.setOnPerformActionListener(this);
+        this.baseballActionView.setOnRestoreActionListener(this);
     }
 
     @Override
@@ -94,19 +109,6 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
         this.timerView.setTimeText(String.valueOf(this.awayScore.getCurrentScore()));
     }
 
-    public void onHomeClick(View v) {
-        this.homeScore.earnPoints(1);
-    }
-
-    public void onAwayClick(View v) {
-        this.awayScore.earnPoints(1);
-    }
-
-    public void onCounterClick(View v) {
-        this.ballAction.perform();
-        this.strikeAction.perform();
-    }
-
     @Override
     public boolean onLongClick(View v) {
         BaseballActionPager baseballActionPager;
@@ -127,7 +129,23 @@ public class MainGameActivity extends AppCompatActivity implements TeamScoreCont
             default:
                 return false;
         }
-        this.baseballActionView.show(baseballActionPager, v);
+
+        this.baseballActionView.showAbove(baseballActionPager);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnPerformStrike:
+                this.strikeAction.perform();
+                break;
+            case R.id.btnPerformBall:
+                this.ballAction.perform();
+                break;
+            default:
+                break;
+        }
+        this.baseballActionView.dismiss();
     }
 }

@@ -8,7 +8,7 @@ import com.hwang.min81.smartumpire.actions.BaseballActions;
  */
 public class PitchCounter implements BaseballActionListener {
     @Override
-    public void performed(BaseballActions action) {
+    public void baseballActionPerformed(BaseballActions action) {
         switch (action) {
             default:
                 break;
@@ -16,7 +16,7 @@ public class PitchCounter implements BaseballActionListener {
     }
 
     @Override
-    public void restored(BaseballActions action) {
+    public void baseballActionRestored(BaseballActions action) {
 
     }
 }

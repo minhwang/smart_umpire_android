@@ -1,7 +1,6 @@
 package com.hwang.min81.smartumpire.actions;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,13 +16,13 @@ public class BaseballAction {
 
     public void perform() {
         for(BaseballActionListener listener : listeners) {
-            listener.performed(this.action);
+            listener.baseballActionPerformed(this.action);
         }
     }
 
     public void restore() {
         for(BaseballActionListener listener : listeners) {
-            listener.restored(this.action);
+            listener.baseballActionRestored(this.action);
         }
     }
 
