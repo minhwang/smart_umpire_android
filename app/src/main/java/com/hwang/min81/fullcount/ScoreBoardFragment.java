@@ -1,4 +1,4 @@
-package com.hwang.min81.fullcount.views;
+package com.hwang.min81.fullcount;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hwang.min81.fullcount.R;
-import com.hwang.min81.fullcount.Score;
+import com.hwang.min81.fullcount.views.InningView;
+import com.hwang.min81.fullcount.views.TeamScoreView;
 
 /**
  * A simple {@link Fragment} subclass.

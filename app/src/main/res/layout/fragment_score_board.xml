@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.hwang.min81.fullcount.views.ScoreBoardFragment">
+    tools:context=".ScoreBoardFragment">
 
     <com.hwang.min81.fullcount.views.SimpleTeamScoreView
         android:id="@+id/away_score_view"
