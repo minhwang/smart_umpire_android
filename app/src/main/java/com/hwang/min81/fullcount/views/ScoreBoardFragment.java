@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.hwang.min81.fullcount.R;
 import com.hwang.min81.fullcount.Score;
-import com.hwang.min81.fullcount.controllers.TeamScoreController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +19,7 @@ import com.hwang.min81.fullcount.controllers.TeamScoreController;
  * Use the {@link ScoreBoardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ScoreBoardFragment extends Fragment implements TeamScoreController{
+public class ScoreBoardFragment extends Fragment implements Score.ScoreChangedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_HOME_SCORE = "param1";
@@ -99,7 +98,7 @@ public class ScoreBoardFragment extends Fragment implements TeamScoreController{
     }
 
     @Override
-    public void scoreChanged(Score score) {
+    public void onScoreChanged(Score score) {
 
     }
 
