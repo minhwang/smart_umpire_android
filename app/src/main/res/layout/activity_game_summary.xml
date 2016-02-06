@@ -9,5 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hwang.min81.fullcount.GameSummaryActivity">
 
+    <fragment
+        android:id="@+id/scoreBoardFragment"
+        android:name="com.hwang.min81.fullcount.ScoreBoardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
