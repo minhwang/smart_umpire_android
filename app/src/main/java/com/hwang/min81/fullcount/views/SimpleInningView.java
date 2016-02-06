@@ -12,11 +12,11 @@ import com.hwang.min81.fullcount.R;
 /**
  * Created by min on 2016. 1. 9..
  */
-public class InningViewImpl extends LinearLayout implements InningView {
+public class SimpleInningView extends LinearLayout implements InningView {
     private TextView tvInning;
     private TextView tvTopBottom;
 
-    public InningViewImpl(Context context, AttributeSet attrs) {
+    public SimpleInningView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(

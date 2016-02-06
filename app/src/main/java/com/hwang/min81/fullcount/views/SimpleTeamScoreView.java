@@ -13,12 +13,12 @@ import com.hwang.min81.fullcount.R;
 /**
  * Created by min on 2016. 1. 9..
  */
-public class TeamScoreViewImpl extends LinearLayout implements TeamScoreView{
+public class SimpleTeamScoreView extends LinearLayout implements TeamScoreView{
     private TextView tvTeamName;
     private TextView tvTeamScore;
     private ImageView ivBatPitch;
 
-    public TeamScoreViewImpl(Context context, AttributeSet attrs) {
+    public SimpleTeamScoreView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(
