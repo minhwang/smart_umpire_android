@@ -16,7 +16,7 @@ import com.hwang.min81.fullcount.views.BaseballActionView;
 import com.hwang.min81.fullcount.views.TeamScoreView;
 import com.hwang.min81.fullcount.views.TimerView;
 
-public class MainGameActivity extends AppCompatActivity implements BaseballActionController, TeamScoreController, BallStrikeOutCounterController, TimerController, View.OnClickListener, View.OnLongClickListener {
+public class MainGameActivity extends AppCompatActivity implements BaseballActionController, BallStrikeOutCounterController, TimerController, View.OnClickListener, View.OnLongClickListener {
     private BaseballScore homeScore;
     private BaseballScore awayScore;
     private TeamScoreView homeScoreView;
@@ -46,10 +46,8 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
         Intent intent = getIntent();
 
         this.homeScore = new BaseballScore();
-        this.homeScore.addListener(this);
         this.homeScore.setCurrentScore(intent.getIntExtra("homeScore", 0));
         this.awayScore = new BaseballScore();
-        this.awayScore.addListener(this);
         this.awayScore.setCurrentScore(intent.getIntExtra("awayScore", 0));
 
         this.homeScoreView.setTeamName(intent.getStringExtra("homeTeamName"));
@@ -86,24 +84,10 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
     }
 
     @Override
-    public void scoreChanged(Score score) {
-        if(score.equals(this.homeScore)) { homeScoreChanged(); }
-        else { awayScoreChanged(); }
-    }
-
-    @Override
     public void counterChanged(BallStrikeOutCounter counter) {
         this.ballStrikeOutCounterView.setBalls(counter.getBalls());
         this.ballStrikeOutCounterView.setStrikes(counter.getStrikes());
         this.ballStrikeOutCounterView.setOuts(counter.getOuts());
-    }
-
-    private void homeScoreChanged() {
-        this.homeScoreView.setTeamScore(this.homeScore.getCurrentScore());
-    }
-
-    private void awayScoreChanged() {
-        this.awayScoreView.setTeamScore(this.awayScore.getCurrentScore());
     }
 
     @Override

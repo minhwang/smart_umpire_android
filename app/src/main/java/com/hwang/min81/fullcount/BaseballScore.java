@@ -1,55 +1,25 @@
 package com.hwang.min81.fullcount;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by min on 2015. 12. 27..
  */
-public class BaseballScore implements Score<Integer> {
-    private Integer score = 0;
-    private List<ScoreChangedEventListener> listeners = new ArrayList();
-
+public class BaseballScore extends Score<Integer> {
     @Override
     public Integer earnPoints(int points) {
+        int score = getCurrentScore();
         if(points > 0) {
-            long result = (long)this.score + (long)points;
-            this.score = result <= Integer.MAX_VALUE ? (int)result : Integer.MAX_VALUE;
-            scoreChanged();
+            try {
+                score = getCurrentScore() + points;
+            } catch (ArithmeticException ex) {
+                score = Integer.MAX_VALUE;
+            }
         }
-
-        return this.score;
+        setCurrentScore(score);
+        return getCurrentScore();
     }
 
     @Override
     public Integer loosePoints(int points) {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Integer getCurrentScore() {
-        return this.score;
-    }
-
-    @Override
-    public void setCurrentScore(Integer score) {
-        this.score = score;
-        scoreChanged();
-    }
-
-    @Override
-    public void addListener(ScoreChangedEventListener listener) {
-        this.listeners.add(listener);
-    }
-
-    @Override
-    public void removeListener(ScoreChangedEventListener listener) {
-        this.listeners.remove(listener);
-    }
-
-    private void scoreChanged() {
-        for(ScoreChangedEventListener listener : listeners) {
-            listener.scoreChanged(this);
-        }
     }
 }
