@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hwang.min81.smartumpire">
+    package="com.hwang.min81.fullcount">
 
     <application
         android:allowBackup="true"
@@ -8,19 +8,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity_" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.hwang.min81.fullcount.MainActivity_" />
+        <activity android:name="com.hwang.min81.fullcount.MainActivity">
         </activity>
         <activity
-            android:name=".TestActivity"
+            android:name="com.hwang.min81.fullcount.TestActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ActionPopupActivity"
+            android:name="com.hwang.min81.fullcount.ActionPopupActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".MainGameActivity"
+            android:name="com.hwang.min81.fullcount.MainGameActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.hwang.min81.fullcount.SplashActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

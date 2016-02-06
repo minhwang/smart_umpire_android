@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.hwang.min81.smartumpire.SplashActivity"
+    tools:context="com.hwang.min81.fullcount.SplashActivity"
     android:gravity="center_vertical"
     android:background="#efb97e">
 
