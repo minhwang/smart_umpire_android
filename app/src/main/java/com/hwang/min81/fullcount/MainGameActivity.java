@@ -140,6 +140,9 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
             case R.id.btnPerformBall:
                 this.ballAction.perform();
                 break;
+            case R.id.btnPerformSummary:
+                Intent i = new Intent(this, GameSummaryActivity.class);
+                startActivity(i);
             default:
                 break;
         }
