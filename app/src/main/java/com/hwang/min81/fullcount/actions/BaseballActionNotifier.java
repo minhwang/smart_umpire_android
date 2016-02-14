@@ -32,5 +32,6 @@ public class BaseballActionNotifier {
     public interface BaseballActionListener {
         void onBaseballActionPerformed(BaseballActions action);
         void onBaseballActionRestored(BaseballActions action);
+        boolean hasTheLastActionBeenHandled();
     }
 }

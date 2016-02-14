@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by min81 on 2015-10-07.
@@ -17,166 +18,76 @@ import static org.mockito.Mockito.verify;
 public class BallStrikeOutCounterTest {
     @Test
     public void testWhenCreated_thenHasDefaultValues() {
-        BallStrikeOutCounter counter;
+        BallStrikeOutCounter ballStrikeOutCounter;
 
         when: {
-            counter = new BallStrikeOutCounter();
+            ballStrikeOutCounter = new BallStrikeOutCounter();
         }
         then: {
-            assertEquals(0, counter.getBalls());
-            assertEquals(0, counter.getStrikes());
-            assertEquals(0, counter.getOuts());
+            assertEquals(0, ballStrikeOutCounter.getBalls());
+            assertEquals(0, ballStrikeOutCounter.getStrikes());
+            assertEquals(0, ballStrikeOutCounter.getOuts());
         }
     }
 
     @Test
     public void testGivenActionBall_whenActionPerformed_thenWillHandleIt() {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionBall;
+        BallStrikeOutCounter ballStrikeOutCounter;
+        BaseballActionNotifier baseballActionNotifier;
 
         given: {
-            counter = Mockito.mock(BallStrikeOutCounter.class);
-            baseballActionBall = new BaseballAction(BaseballActions.BALL);
-            baseballActionBall.addActionListener(counter);
+            ballStrikeOutCounter = new BallStrikeOutCounter();
+            baseballActionNotifier = new BaseballActionNotifier();
+            baseballActionNotifier.addActionListener(ballStrikeOutCounter);
         }
 
         when: {
-            baseballActionBall.perform();
-            baseballActionBall.restore();
+            baseballActionNotifier.perform(BaseballActions.BALL);
         }
 
         then: {
-            verify(counter).baseballActionPerformed(BaseballActions.BALL);
-            verify(counter).baseballActionRestored(BaseballActions.BALL);
-        }
-    }
-
-    @Test
-    public void testGivenActionBall_whenActionPerformed_thenIncreasesBallsByOne() {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionBall;
-
-        given: {
-            counter = new BallStrikeOutCounter();
-            baseballActionBall = new BaseballAction(BaseballActions.BALL);
-            baseballActionBall.addActionListener(counter);
-        }
-
-        when: {
-            baseballActionBall.perform();
-        }
-
-        then: {
-            assertEquals(1, counter.getBalls());
+            assertTrue(ballStrikeOutCounter.hasTheLastActionBeenHandled());
         }
     }
 
     @Test
     public void testGivenActionStrike_whenActionPerformed_thenWillHandleIt() {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionStrike;
+        BallStrikeOutCounter ballStrikeOutCounter;
+        BaseballActionNotifier baseballActionNotifier;
 
         given: {
-            counter = Mockito.mock(BallStrikeOutCounter.class);
-            baseballActionStrike = new BaseballAction(BaseballActions.STRIKE);
-            baseballActionStrike.addActionListener(counter);
+            ballStrikeOutCounter = new BallStrikeOutCounter();
+            baseballActionNotifier = new BaseballActionNotifier();
+            baseballActionNotifier.addActionListener(ballStrikeOutCounter);
         }
 
         when: {
-            baseballActionStrike.perform();
-            baseballActionStrike.restore();
+            baseballActionNotifier.perform(BaseballActions.STRIKE);
         }
 
         then: {
-            verify(counter).baseballActionPerformed(BaseballActions.STRIKE);
-            verify(counter).baseballActionRestored(BaseballActions.STRIKE);
-        }
-    }
-
-    @Test
-    public void testGivenActionStrike_whenActionPerformed_thenIncreasesBallsByOne() {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionStrike   ;
-
-        given: {
-            counter = new BallStrikeOutCounter();
-            baseballActionStrike = new BaseballAction(BaseballActions.STRIKE);
-            baseballActionStrike.addActionListener(counter);
-        }
-
-        when: {
-            baseballActionStrike.perform();
-        }
-
-        then: {
-            assertEquals(1, counter.getStrikes());
+            assertTrue(ballStrikeOutCounter.hasTheLastActionBeenHandled());
         }
     }
 
     @Test
     public void testGivenActionBaseOnBalls_whenActionPerformed_thenWillHandleIt() {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionStrike;
+        BallStrikeOutCounter ballStrikeOutCounter;
+        BaseballActionNotifier baseballActionNotifier;
 
         given: {
-            counter = Mockito.mock(BallStrikeOutCounter.class);
-            baseballActionStrike = new BaseballAction(BaseballActions.BASE_ON_BALLS);
-            baseballActionStrike.addActionListener(counter);
+            ballStrikeOutCounter = new BallStrikeOutCounter();
+            baseballActionNotifier = new BaseballActionNotifier();
+            baseballActionNotifier.addActionListener(ballStrikeOutCounter);
         }
 
         when: {
-            baseballActionStrike.perform();
-            baseballActionStrike.restore();
+            baseballActionNotifier.perform(BaseballActions.BASE_ON_BALLS);
         }
 
         then: {
-            verify(counter).baseballActionPerformed(BaseballActions.BASE_ON_BALLS);
-            verify(counter).baseballActionRestored(BaseballActions.BASE_ON_BALLS);
+            assertTrue(ballStrikeOutCounter.hasTheLastActionBeenHandled());
         }
-    }
-
-    @Test
-    public void testGivenActionBaseOnBalls_whenActionPerformed_thenResetBallsAndStrikes() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter counter;
-        BaseballAction baseballActionStrike   ;
-
-        given: {
-            counter = new BallStrikeOutCounter();
-            counter.setBalls(1);
-            counter.setStrikes(1);
-            baseballActionStrike = new BaseballAction(BaseballActions.BASE_ON_BALLS);
-            baseballActionStrike.addActionListener(counter);
-        }
-
-        when: {
-            baseballActionStrike.perform();
-        }
-
-        then: {
-            assertEquals(0, counter.getBalls());
-            assertEquals(0, counter.getStrikes());
-        }
-    }
-
-
-
-    /*
-     * setBalls() 함수가 예외를 발생시키도록 수정되면서 함수 시그너처가 바뀌었음.
-    @Test
-    public void Ball_CanBeAssignedTheValue_0to3() {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-
-        ballStrikeOutCounter.setBalls((short)0);
-        assertEquals(0, ballStrikeOutCounter.getBalls());
-
-        ballStrikeOutCounter.setBalls((short)1);
-        assertEquals(1, ballStrikeOutCounter.getBalls());
-
-        ballStrikeOutCounter.setBalls((short)2);
-        assertEquals(2, ballStrikeOutCounter.getBalls());
-
-        ballStrikeOutCounter.setBalls((short)3);
-        assertEquals(3, ballStrikeOutCounter.getBalls());
     }
 
     //// TODO: 2015-10-08 Parameterized test 고려해볼 필요 있음.
@@ -247,151 +158,4 @@ public class BallStrikeOutCounterTest {
         ballStrikeOutCounter.setOuts((short) 3);
         ballStrikeOutCounter.setOuts((short) 4);
     }
-
-    @Test
-    public void addOneStrike_whenStrikeIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenStrike = 0;
-
-        ballStrikeOutCounter.setStrikes(givenStrike);
-
-        ballStrikeOutCounter.addOneStrike();
-
-        assertEquals(givenStrike + 1, ballStrikeOutCounter.getStrikes());
-    }
-
-    @Test
-    public void addOneStrike_whenStrikeIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenStrike = 1;
-
-        ballStrikeOutCounter.setStrikes(givenStrike);
-
-        ballStrikeOutCounter.addOneStrike();
-
-        assertEquals(givenStrike + 1, ballStrikeOutCounter.getStrikes());
-    }
-
-    @Test
-    public void addOneStrike_whenStrikeIs2_BallIs1_OutIs0_shouldResetStrikeAndBall_andAddOneOut() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenStrike = 2, givenBall = 1, givenOut = 0;
-
-        ballStrikeOutCounter.setStrikes(givenStrike);
-        ballStrikeOutCounter.setBalls(givenBall);
-        ballStrikeOutCounter.setOuts(givenOut);
-
-        ballStrikeOutCounter.addOneStrike();
-
-        assertEquals(0, ballStrikeOutCounter.getStrikes());
-        assertEquals(0, ballStrikeOutCounter.getBalls());
-        assertEquals(givenOut + 1, ballStrikeOutCounter.getOuts());
-    }
-
-    @Test
-    public void addOneOut_whenOutIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenOut = 0;
-
-        ballStrikeOutCounter.setOuts(givenOut);
-
-        ballStrikeOutCounter.addOneOut();
-
-        assertEquals(givenOut + 1, ballStrikeOutCounter.getOuts());
-    }
-
-    @Test
-    public void addOneOut_whenOutIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenOut = 1;
-
-        ballStrikeOutCounter.setOuts(givenOut);
-
-        ballStrikeOutCounter.addOneOut();
-
-        assertEquals(givenOut + 1, ballStrikeOutCounter.getOuts());
-    }
-
-    @Test
-    public void addOneOut_whenOutIs2_shouldResetAll() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenStrike = 2, givenBall = 1, givenOut = 2;
-
-        ballStrikeOutCounter.setStrikes(givenStrike);
-        ballStrikeOutCounter.setBalls(givenBall);
-        ballStrikeOutCounter.setOuts(givenOut);
-
-        ballStrikeOutCounter.addOneOut();
-
-        assertEquals(0, ballStrikeOutCounter.getStrikes());
-        assertEquals(0, ballStrikeOutCounter.getBalls());
-        assertEquals(0, ballStrikeOutCounter.getOuts());
-    }
-
-    @Test
-    public void addOneBall_whenBallIs0_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenBall = 0;
-
-        ballStrikeOutCounter.setBalls(givenBall);
-
-        ballStrikeOutCounter.addOneBall();
-
-        assertEquals(givenBall + 1, ballStrikeOutCounter.getBalls());
-    }
-
-    @Test
-    public void addOneBall_whenBallIs1_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenBall = 1;
-
-        ballStrikeOutCounter.setBalls(givenBall);
-
-        ballStrikeOutCounter.addOneBall();
-
-        assertEquals(givenBall + 1, ballStrikeOutCounter.getBalls());
-    }
-
-    @Test
-    public void addOneBall_whenBallIs2_shouldIncreaseBy1() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenBall = 2;
-
-        ballStrikeOutCounter.setBalls(givenBall);
-
-        ballStrikeOutCounter.addOneBall();
-
-        assertEquals(givenBall + 1, ballStrikeOutCounter.getBalls());
-    }
-
-    @Test
-    public void addOneBall_whenBallIs3_shouldResetBallAndStrike() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenBall = 3, givenStrike = 1;
-
-        ballStrikeOutCounter.setBalls(givenBall);
-        ballStrikeOutCounter.setStrikes(givenStrike);
-
-        ballStrikeOutCounter.addOneBall();
-
-        assertEquals(0, ballStrikeOutCounter.getBalls());
-        assertEquals(0, ballStrikeOutCounter.getStrikes());
-    }
-
-    @Test
-    public void addOneStrike_whenStrikeIs2AndOutIs2_shouldResetAll() throws BallStrikeOutCounter.MaxValueReachedException {
-        BallStrikeOutCounter ballStrikeOutCounter = new BallStrikeOutCounter();
-        final short givenStrike = 2, givenOut = 2, givenBall = 2;
-
-        ballStrikeOutCounter.setStrikes(givenStrike);
-        ballStrikeOutCounter.setBalls(givenBall);
-        ballStrikeOutCounter.setOuts(givenOut);
-
-        ballStrikeOutCounter.addOneStrike();
-
-        assertEquals(0, ballStrikeOutCounter.getStrikes());
-        assertEquals(0, ballStrikeOutCounter.getBalls());
-        assertEquals(0, ballStrikeOutCounter.getOuts());
-    }
-*/
 }

@@ -14,8 +14,8 @@ public class ActionRecorderTest {
     @Test
     public void testPush_() {
         ActionRecorder recorder = new ActionRecorder();
-        BaseballAction action1 = new BaseballAction(BaseballActions.BASE_ON_BALLS);
-        BaseballAction action2 = new BaseballAction(BaseballActions.BALL);
+        BaseballActionNotifier action1 = new BaseballActionNotifier();
+        BaseballActionNotifier action2 = new BaseballActionNotifier();
 
         recorder.push(action1);
         recorder.push(action1);
@@ -30,8 +30,8 @@ public class ActionRecorderTest {
     @Test
     public void testGiven10Actions_whenActionPushed_thenRemoveTheFirst() {
         ActionRecorder recorder = new ActionRecorder();
-        BaseballAction action1 = new BaseballAction(BaseballActions.BASE_ON_BALLS);
-        BaseballAction action2 = new BaseballAction(BaseballActions.BALL);
+        BaseballActionNotifier action1 = new BaseballActionNotifier();
+        BaseballActionNotifier action2 = new BaseballActionNotifier();
 
         given: {
             recorder.push(action1);
@@ -68,7 +68,7 @@ public class ActionRecorderTest {
     @Test
     public void testGivenNoAction_whenPopped_thenReturnsNull() {
         ActionRecorder recorder;
-        BaseballAction action;
+        BaseballActionNotifier action;
 
         given: {
             recorder = new ActionRecorder();

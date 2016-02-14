@@ -61,42 +61,42 @@ public class BaseballActionStrikeTest {
         });
     }
 
-    private int balls, strikes, outs, expectedBalls, expectedStrikes, expectedOuts;
-    private BallStrikeOutCounter counter;
-    private BaseballAction baseballActionStrike;
+    private int mBalls, mStrikes, mOuts, mExpectedBalls, mExpectedStrikes, mExpectedOuts;
+    private BallStrikeOutCounter mBllStrikeCounter;
+    private BaseballActionNotifier mBaseballActionNotifier;
 
     public BaseballActionStrikeTest(int balls, int strikes, int outs, int expectedBalls, int expectedStrikes, int expectedOuts) {
-        this.balls = balls;
-        this.strikes = strikes;
-        this.outs = outs;
-        this.expectedBalls = expectedBalls;
-        this.expectedStrikes = expectedStrikes;
-        this.expectedOuts = expectedOuts;
+        mBalls = balls;
+        mStrikes = strikes;
+        mOuts = outs;
+        mExpectedBalls = expectedBalls;
+        mExpectedStrikes = expectedStrikes;
+        mExpectedOuts = expectedOuts;
     }
 
     @Before
     public void setUp() {
-        this.counter = new BallStrikeOutCounter();
-        this.baseballActionStrike = new BaseballAction(BaseballActions.STRIKE);
-        this.baseballActionStrike.addActionListener(this.counter);
+        mBllStrikeCounter = new BallStrikeOutCounter();
+        mBaseballActionNotifier = new BaseballActionNotifier();
+        mBaseballActionNotifier.addActionListener(mBllStrikeCounter);
     }
 
     @Test
     public void testGivenSpecifiedCounts_whenActionStrikePerformed_thenCountCorrectly() throws BallStrikeOutCounter.MaxValueReachedException {
         given: {
-            this.counter.setBalls(this.balls);
-            this.counter.setStrikes(this.strikes);
-            this.counter.setOuts(this.outs);
+            mBllStrikeCounter.setBalls(mBalls);
+            mBllStrikeCounter.setStrikes(mStrikes);
+            mBllStrikeCounter.setOuts(mOuts);
         }
 
         when: {
-            this.baseballActionStrike.perform();
+            this.mBaseballActionNotifier.perform(BaseballActions.STRIKE);
         }
 
         then: {
-            assertEquals(this.expectedBalls, this.counter.getBalls());
-            assertEquals(this.expectedStrikes, this.counter.getStrikes());
-            assertEquals(this.expectedOuts, this.counter.getOuts());
+            assertEquals(this.mExpectedBalls, this.mBllStrikeCounter.getBalls());
+            assertEquals(this.mExpectedStrikes, this.mBllStrikeCounter.getStrikes());
+            assertEquals(this.mExpectedOuts, this.mBllStrikeCounter.getOuts());
         }
     }
 }
