@@ -5,17 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.hwang.min81.fullcount.actions.BaseballAction;
+import com.hwang.min81.fullcount.actions.BaseballActionNotifier;
 import com.hwang.min81.fullcount.actions.BaseballActions;
-import com.hwang.min81.fullcount.controllers.BallStrikeOutCounterController;
-import com.hwang.min81.fullcount.controllers.BaseballActionController;
+import com.hwang.min81.fullcount.controllers.BallStrikeOutCounterViewController;
+import com.hwang.min81.fullcount.controllers.BaseballActionViewController;
 import com.hwang.min81.fullcount.controllers.TimerController;
 import com.hwang.min81.fullcount.views.BallStrikeOutCounterView;
 import com.hwang.min81.fullcount.views.BaseballActionView;
 import com.hwang.min81.fullcount.views.TeamScoreView;
 import com.hwang.min81.fullcount.views.TimerView;
 
-public class MainGameActivity extends AppCompatActivity implements BaseballActionController, BallStrikeOutCounterController, TimerController, View.OnClickListener, View.OnLongClickListener {
+public class MainGameActivity extends AppCompatActivity implements BaseballActionViewController, BallStrikeOutCounterViewController, TimerController, View.OnClickListener, View.OnLongClickListener {
     private BaseballScore homeScore;
     private BaseballScore awayScore;
     private TeamScoreView homeScoreView;
@@ -26,8 +26,9 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
     private BallStrikeOutCounter ballStrikeOutCounter;
     private BallStrikeOutCounterView ballStrikeOutCounterView;
 
-    private BaseballAction ballAction;
-    private BaseballAction strikeAction;
+    private BaseballActionNotifier mBaseballActionNotifier;
+    private BaseballActionNotifier ballAction;
+    private BaseballActionNotifier strikeAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +57,12 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
         this.ballStrikeOutCounter.addListener(this);
 
         // TODO: 모든 액션을 BaseballAction에서 관리하도록 수정 필요
-        this.ballAction = new BaseballAction(BaseballActions.BALL);
-        this.ballAction.addActionListener(this.ballStrikeOutCounter);
-        this.strikeAction = new BaseballAction(BaseballActions.STRIKE);
-        this.strikeAction.addActionListener(this.ballStrikeOutCounter);
+        mBaseballActionNotifier = new BaseballActionNotifier();
+        mBaseballActionNotifier.addActionListener(this.ballStrikeOutCounter);
+        //this.ballAction = new BaseballActionNotifier(BaseballActions.BALL);
+        //this.ballAction.addActionListener(this);
+        //this.strikeAction = new BaseballActionNotifier(BaseballActions.STRIKE);
+        //this.strikeAction.addActionListener(this.ballStrikeOutCounter);
 
         // set longclicklisteners for menu button
         findViewById(R.id.btnManagingAction).setOnLongClickListener(this);
@@ -83,7 +86,7 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
     }
 
     @Override
-    public void counterChanged(BallStrikeOutCounter counter) {
+    public void onCounterChanged(BallStrikeOutCounter counter) {
         this.ballStrikeOutCounterView.setBalls(counter.getBalls());
         this.ballStrikeOutCounterView.setStrikes(counter.getStrikes());
         this.ballStrikeOutCounterView.setOuts(counter.getOuts());
@@ -118,10 +121,10 @@ public class MainGameActivity extends AppCompatActivity implements BaseballActio
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnPerformStrike:
-                this.strikeAction.perform();
+                this.strikeAction.perform(BaseballActions.STRIKE);
                 break;
             case R.id.btnPerformBall:
-                this.ballAction.perform();
+                this.ballAction.perform(BaseballActions.BALL);
                 break;
             case R.id.btnPerformSummary:
                 Intent i = new Intent(this, GameSummaryActivity.class);

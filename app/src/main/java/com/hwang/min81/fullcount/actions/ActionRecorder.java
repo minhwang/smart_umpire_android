@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class ActionRecorder {
     private final int MAX_ACTIONS_TO_RECORD = 10;
-    private List<BaseballAction> actions = new ArrayList<>();
+    private List<BaseballActionNotifier> actions = new ArrayList<>();
 
-    public void push(BaseballAction action) {
+    public void push(BaseballActionNotifier action) {
         if(this.actions.size() >= this.MAX_ACTIONS_TO_RECORD) {
             this.actions.remove(0);
         }
@@ -18,8 +18,8 @@ public class ActionRecorder {
         this.actions.add(action);
     }
 
-    public BaseballAction pop() {
-        BaseballAction action = null;
+    public BaseballActionNotifier pop() {
+        BaseballActionNotifier action = null;
         int location = this.actions.size() - 1;
 
         if(location >= 0) {

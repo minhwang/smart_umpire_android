@@ -8,10 +8,11 @@ import java.util.List;
 /**
  * Created by min81 on 2015-10-07.
  */
-public class BallStrikeOutCounter implements BaseballActionListener {
+public class BallStrikeOutCounter implements BaseballActionNotifier.BaseballActionListener {
     private final int MAX_BALLS = 4, MAX_STRIKES = 3, MAX_OUTS = 3;
-    private int balls, strikes, outs;
-    private List<BallStrikeOutCounterChangedEventListener> listeners = new ArrayList();
+    private int mBalls, mStrikes, mOuts;
+    private boolean mHasTheLastActionBeenHandled;
+    private List<BallStrikeOutCounterChangedListener> mListeners = new ArrayList();
 
     public BallStrikeOutCounter() {
         try {
@@ -24,56 +25,72 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     }
 
     public int getBalls() {
-        return this.balls;
+        return mBalls;
     }
 
     public void setBalls(int balls) throws MaxValueReachedException {
         if(balls >= this.MAX_BALLS) { throw new MaxValueReachedException(); }
-        this.balls = balls;
-        counterChanged();
+        mBalls = balls;
+        onCounterChanged();
     }
 
     public int getStrikes() {
-        return this.strikes;
+        return mStrikes;
     }
 
     public void setStrikes(int strikes) throws MaxValueReachedException {
         if(strikes > this.MAX_STRIKES) { throw new MaxValueReachedException(); }
-        this.strikes = strikes;
-        counterChanged();
+        mStrikes = strikes;
+        onCounterChanged();
     }
 
     public int getOuts() {
-        return this.outs;
+        return mOuts;
     }
 
     public void setOuts(int outs) throws MaxValueReachedException {
         if(outs > this.MAX_OUTS) { throw new MaxValueReachedException(); }
-        this.outs = outs;
-        counterChanged();
+        mOuts = outs;
+        onCounterChanged();
     }
 
     @Override
-    public void baseballActionPerformed(BaseballActions action) {
+    public boolean hasTheLastActionBeenHandled() {
+        return mHasTheLastActionBeenHandled;
+    }
+
+    @Override
+    public void onBaseballActionPerformed(BaseballActions action) {
+        mHasTheLastActionBeenHandled = false;
+
         switch (action) {
-            case BALL:
+            case BALL: {
                 this.increaseBallsByOne();
+                mHasTheLastActionBeenHandled = true;
                 break;
-            case STRIKE:
+            }
+            case STRIKE: {
                 this.increaseStrikesByOne();
+                mHasTheLastActionBeenHandled = true;
                 break;
-            case BASE_ON_BALLS:
+            }
+            case BASE_ON_BALLS: {
                 try {
                     this.setBalls(0);
                     this.setStrikes(0);
+                    mHasTheLastActionBeenHandled = true;
                 } catch (MaxValueReachedException e) {
                     e.printStackTrace();
+                } finally {
+                    break;
                 }
+            }
 
-            default:
+            default: {
+                mHasTheLastActionBeenHandled = false;
                 break;
+            }
         }
-
     }
 
     private void increaseBallsByOne() {
@@ -119,21 +136,20 @@ public class BallStrikeOutCounter implements BaseballActionListener {
     }
 
     @Override
-    public void baseballActionRestored(BaseballActions action) {
-
+    public void onBaseballActionRestored(BaseballActions action) {
     }
 
-    public void addListener(BallStrikeOutCounterChangedEventListener listener) {
-        this.listeners.add(listener);
+    public void addListener(BallStrikeOutCounterChangedListener listener) {
+        this.mListeners.add(listener);
     }
 
-    public void removeListener(BallStrikeOutCounterChangedEventListener listener) {
-        this.listeners.remove(listener);
+    public void removeListener(BallStrikeOutCounterChangedListener listener) {
+        this.mListeners.remove(listener);
     }
 
-    private void counterChanged() {
-        for(BallStrikeOutCounterChangedEventListener listener : listeners) {
-            listener.counterChanged(this);
+    private void onCounterChanged() {
+        for(BallStrikeOutCounterChangedListener listener : mListeners) {
+            listener.onCounterChanged(this);
         }
     }
 
