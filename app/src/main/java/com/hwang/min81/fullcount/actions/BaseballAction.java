@@ -7,7 +7,7 @@ import java.util.List;
  * Created by min on 2016. 1. 1..
  */
 public class BaseballAction {
-    private List<BaseballActionListener> listeners = new ArrayList();
+    private List<BaseballActionListener> mListeners = new ArrayList();
     private BaseballActions action;
 
     public BaseballAction(BaseballActions action) {
@@ -15,22 +15,27 @@ public class BaseballAction {
     }
 
     public void perform() {
-        for(BaseballActionListener listener : listeners) {
-            listener.baseballActionPerformed(this.action);
+        for(BaseballActionListener listener : mListeners) {
+            listener.onBaseballActionPerformed(this.action);
         }
     }
 
     public void restore() {
-        for(BaseballActionListener listener : listeners) {
-            listener.baseballActionRestored(this.action);
+        for(BaseballActionListener listener : mListeners) {
+            listener.onBaseballActionRestored(this.action);
         }
     }
 
     public void addActionListener(BaseballActionListener listener) {
-        this.listeners.add(listener);
+        mListeners.add(listener);
     }
 
     public void removeActionListener(BaseballActionListener listener) {
-        this.listeners.remove(listener);
+        mListeners.remove(listener);
+    }
+
+    public interface BaseballActionListener {
+        void onBaseballActionPerformed(BaseballActions action);
+        void onBaseballActionRestored(BaseballActions action);
     }
 }
