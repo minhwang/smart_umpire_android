@@ -10,7 +10,7 @@
     tools:context="com.hwang.min81.fullcount.GameSummaryActivity">
 
     <fragment
-        android:id="@+id/scoreBoardFragment"
+        android:id="@+id/score_board_fragment"
         android:name="com.hwang.min81.fullcount.ScoreBoardFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
