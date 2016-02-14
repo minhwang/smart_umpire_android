@@ -83,12 +83,18 @@ public class ScoreBoardFragment extends Fragment implements Score.ScoreChangedLi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        /*if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
+        }*/
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mHomeTeamScoreView = (TeamScoreView)getActivity().findViewById(R.id.home_score_view);
     }
 
     @Override
