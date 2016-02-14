@@ -71,7 +71,7 @@ public class BallStrikeOutCounterTest {
     }
 
     @Test
-    public void testGivenActionBaseOnBalls_whenActionPerformed_thenWillHandleIt() {
+    public void testGivenActionHitByPitch_whenActionPerformed_thenWillHandleIt() {
         BallStrikeOutCounter ballStrikeOutCounter;
         BaseballActionNotifier baseballActionNotifier;
 
@@ -82,7 +82,7 @@ public class BallStrikeOutCounterTest {
         }
 
         when: {
-            baseballActionNotifier.perform(BaseballActions.BASE_ON_BALLS);
+            baseballActionNotifier.perform(BaseballActions.HIT_BY_PITCH);
         }
 
         then: {

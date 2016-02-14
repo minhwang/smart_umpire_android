@@ -74,7 +74,7 @@ public class BallStrikeOutCounter implements BaseballActionNotifier.BaseballActi
                 mHasTheLastActionBeenHandled = true;
                 break;
             }
-            case BASE_ON_BALLS: {
+            case HIT_BY_PITCH: {
                 try {
                     this.setBalls(0);
                     this.setStrikes(0);
