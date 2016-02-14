@@ -6,23 +6,18 @@ import java.util.List;
 /**
  * Created by min on 2016. 1. 1..
  */
-public class BaseballAction {
+public class BaseballActionNotifier {
     private List<BaseballActionListener> mListeners = new ArrayList();
-    private BaseballActions action;
 
-    public BaseballAction(BaseballActions action) {
-        this.action = action;
-    }
-
-    public void perform() {
+    public void perform(BaseballActions action) {
         for(BaseballActionListener listener : mListeners) {
-            listener.onBaseballActionPerformed(this.action);
+            listener.onBaseballActionPerformed(action);
         }
     }
 
-    public void restore() {
+    public void restore(BaseballActions action) {
         for(BaseballActionListener listener : mListeners) {
-            listener.onBaseballActionRestored(this.action);
+            listener.onBaseballActionRestored(action);
         }
     }
 
