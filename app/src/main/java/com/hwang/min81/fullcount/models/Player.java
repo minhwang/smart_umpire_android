@@ -34,4 +34,6 @@ public class Player {
     public void setName(String name) {
         mName = name.trim();
     }
+
+    // Achievements
 }
